@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring
+                           http://mybatis.org/schema/mybatis-spring.xsd
+	                       http://www.springframework.org/schema/beans
+	                       http://www.springframework.org/schema/beans/spring-beans.xsd
+		                   http://www.springframework.org/schema/context
+		                   http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Root Context: defines shared resources visible to all other web components -->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+<!--        <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>-->
+<!--        <property name="jdbcUrl" value="jdbc:log4jdbc:mariadb://127.0.0.1:3306/springbook"/>-->
+        <property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mariadb://127.0.0.1:3306/springbook"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <!-- HikariCP configuration -->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+          destroy-method="close">
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
+
+    <!-- Mybatis 핵심. SQL 세션을 통해 Connection 생성 및 SQL Request / Response -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <mybatis-spring:scan base-package="com.springbook.biz.mapper"/>
+
+    <context:component-scan base-package="com.springbook.biz"/>
+
+</beans>

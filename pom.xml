@@ -19,7 +19,7 @@
         <hibernate.version>5.2.16.Final</hibernate.version>
         <hibernate.validator>5.4.1.Final</hibernate.validator>
         <c3po.version>0.9.5.2</c3po.version>
-        <jstl.version>1.2.1</jstl.version>
+        <jstl.version>1.2</jstl.version>
         <tld.version>1.1.2</tld.version>
         <servlets.version>3.1.0</servlets.version>
         <jsp.version>2.3.1</jsp.version>
@@ -35,6 +35,18 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+            <exclusions>
+                <!-- Exclude Commons Logging in favor of SLF4j -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -128,8 +140,8 @@
 
         <!-- JSTL Dependency -->
         <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
         </dependency>
 
@@ -203,7 +215,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
-            <scope>test</scope>
+<!--            <scope>test</scope>-->
         </dependency>
     </dependencies>
 
